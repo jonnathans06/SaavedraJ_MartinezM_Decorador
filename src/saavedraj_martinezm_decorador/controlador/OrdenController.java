@@ -8,10 +8,14 @@ import javax.swing.table.DefaultTableModel;
 import saavedraj_martinezm_decorador.modelo.Cafe;
 import saavedraj_martinezm_decorador.modelo.DecAzucar;
 import saavedraj_martinezm_decorador.modelo.DecCrema;
+import saavedraj_martinezm_decorador.modelo.DecPeperoni;
 import saavedraj_martinezm_decorador.modelo.DecPollo;
+import saavedraj_martinezm_decorador.modelo.DecQueso;
+import saavedraj_martinezm_decorador.modelo.DecSalami;
 import saavedraj_martinezm_decorador.modelo.DecTomate;
 import saavedraj_martinezm_decorador.modelo.DecVinagreta;
 import saavedraj_martinezm_decorador.modelo.Ensalada;
+import saavedraj_martinezm_decorador.modelo.Pizza;
 import saavedraj_martinezm_decorador.modelo.Producto;
 import saavedraj_martinezm_decorador.vista.OrdenVista;
 
@@ -20,13 +24,18 @@ public class OrdenController {
     private List<Producto> listaProductos;
     private Producto cafe;
     private Producto ensalada;
+    private Producto pizza;
     private boolean tieneAzucar = false;
     private boolean tieneCrema = false;
     private boolean tieneTomate = false;
     private boolean tieneVinagreta = false;
     private boolean tienePollo = false;
+    private boolean tieneQueso = false;
+    private boolean tieneSalami = false;
+    private boolean tienePeperoni = false;
     private List adCafe;
     private List adEnsalada;
+    private List adPizza;
     private double subTotal = 0;
 
     public OrdenController(OrdenVista oV) {
@@ -34,9 +43,11 @@ public class OrdenController {
         this.listaProductos = new ArrayList<>();
         this.adCafe = new ArrayList();
         this.adEnsalada = new ArrayList();
+        this.adPizza = new ArrayList();
         setColorBotonesDescativados();
         controlarBotonesCafe();
         controlarBotonesEnsalada();
+        controlarBotonesPizza();
         controlarBotonesFactura();
     }
     
@@ -82,6 +93,29 @@ public class OrdenController {
         });
     }
     
+    public void controlarBotonesPizza() {
+        // Crear pizza
+        oV.getBtnPizza().addActionListener((e) -> {
+            crearPizza();
+            adicionalesPizza();
+        });
+        
+        // Poner Queso
+        oV.getBtnQueso().addActionListener((e) -> {
+            añadirQueso();
+        });
+        
+        // Poner Salami 
+        oV.getBtnSalami().addActionListener((e) -> {
+            añadirSalami();
+        });
+        
+        // Poner Peperoni
+        oV.getBtnPeperoni().addActionListener((e) -> {
+            añadirPeperoni();
+        });
+    }
+    
     public void controlarBotonesFactura(){
         oV.getBtnAñadirCafe().addActionListener((e) -> {
             añadirCafeFactura();
@@ -92,6 +126,12 @@ public class OrdenController {
         oV.getBtnAñadirEnsalada().addActionListener((e) -> {
             añadirEnsaladaFactura();
             oV.getBtnAñadirEnsalada().setEnabled(false);
+            setColorBotonesDescativados();
+        });
+        
+        oV.getBtnAñadirPizza().addActionListener((e) -> {
+            añadirPizzaFactura();
+            oV.getBtnAñadirPizza().setEnabled(false);
             setColorBotonesDescativados();
         });
     }
@@ -161,7 +201,7 @@ public class OrdenController {
             };
             modelo.addRow(fila);
             
-            oV.getTxtPrecio().setText("Total a pagar: " + subTotal + "$");
+            oV.getTxtPrecio().setText("Total a pagar: " + subTotal + "");
         
             cafe = null;
             tieneAzucar = false;
@@ -301,7 +341,85 @@ public class OrdenController {
         oV.getBtnSalami().setEnabled(false);
         oV.getBtnVinagreta().setEnabled(true);
     }
+    
+    public void crearPizza() {
+        int opcion = JOptionPane.showConfirmDialog(oV, "¿Desea añadir a la su orden una pizza?", 
+                                                        "Confirmación", JOptionPane.YES_NO_OPTION);
+        
+        if (opcion == JOptionPane.YES_OPTION) {
+            pizza = new Pizza();
+            System.out.println("Pizza: " + pizza.getDescripcion() + " | Costo: " + pizza.getCosto());
+        }
+    }
+    
+    public void añadirQueso() {
+        if (tieneQueso) {
+            JOptionPane.showMessageDialog(oV, "Ya se añadió queso a esta pizza");
+        } else {
+            int opcion = JOptionPane.showConfirmDialog(oV, "¿Desea añadir queso a esta pizza?", 
+                                                            "Confirmación", JOptionPane.YES_NO_OPTION);
 
+            if (opcion == JOptionPane.YES_OPTION) {
+                pizza = new DecQueso(pizza);
+                adPizza.add("Queso");
+                tieneQueso = true;
+                System.out.println("Pizza: " + pizza.getDescripcion() + " | Costo: " + pizza.getCosto());
+            }
+        }
+    }
+    
+    public void añadirSalami() {
+        if (tieneSalami) {
+            JOptionPane.showMessageDialog(oV, "Ya se añadió salami a esta pizza");
+        } else {
+            int opcion = JOptionPane.showConfirmDialog(oV, "¿Desea añadir salami a esta pizza?", 
+                                                            "Confirmación", JOptionPane.YES_NO_OPTION);
+
+            if (opcion == JOptionPane.YES_OPTION) {
+                pizza = new DecSalami(pizza);
+                adPizza.add("Salami");
+                tieneSalami = true;
+                System.out.println("Pizza: " + pizza.getDescripcion() + " | Costo: " + pizza.getCosto());
+            }
+        }
+    }
+    
+    public void añadirPeperoni() {
+        if (tienePeperoni) {
+            JOptionPane.showMessageDialog(oV, "Ya se añadió pepperoni a esta pizza");
+        } else {
+            int opcion = JOptionPane.showConfirmDialog(oV, "¿Desea añadir pepperoni a esta pizza?", 
+                                                            "Confirmación", JOptionPane.YES_NO_OPTION);
+
+            if (opcion == JOptionPane.YES_OPTION) {
+                pizza = new DecPeperoni(pizza);
+                adPizza.add("Pepperoni");
+                tienePeperoni = true;
+                System.out.println("Pizza: " + pizza.getDescripcion() + " | Costo: " + pizza.getCosto());
+            }
+        }
+    }
+    
+    public void adicionalesPizza() {
+        Color verde = new Color (95, 203, 113);
+        oV.getBtnAñadirPizza().setBackground(verde);
+        
+        oV.getBtnAñadirEnsalada().setEnabled(false);
+        oV.getBtnEnsalada().setEnabled(false);
+        oV.getBtnAñadirCafe().setEnabled(false);
+        oV.getBtnCafe().setEnabled(false);
+        oV.getBtnAzucar().setEnabled(false);
+        oV.getBtnCrema().setEnabled(false);
+        oV.getBtnPeperoni().setEnabled(true);
+        oV.getBtnPizza().setEnabled(true);
+        oV.getBtnPollo().setEnabled(false);
+        oV.getBtnTomate().setEnabled(false);
+        oV.getBtnQueso().setEnabled(true);
+        oV.getBtnSalami().setEnabled(true);
+        oV.getBtnVinagreta().setEnabled(false);
+        oV.getBtnAñadirPizza().setEnabled(true);
+    }
+    
     public void bloquearTodosAdicionales() {
         oV.getBtnCafe().setEnabled(true);
         oV.getBtnAzucar().setEnabled(false);
@@ -314,6 +432,41 @@ public class OrdenController {
         oV.getBtnSalami().setEnabled(false);
         oV.getBtnVinagreta().setEnabled(false);
         oV.getBtnTomate().setEnabled(false);
+    }
+    
+    public void añadirPizzaFactura() {
+        try {
+            listaProductos.add(pizza);
+            subTotal = subTotal + pizza.getCosto();
+            DefaultTableModel modelo = (DefaultTableModel) oV.getTblFactura().getModel();
+            String adicionales;
+        
+            if (adPizza.isEmpty()) {
+                adicionales = "No";
+            } else {
+                adicionales = adPizza.toString();
+            }
+            
+            Object[] fila = {
+                "Pizza",
+                adicionales,
+                String.format("%.2f", pizza.getCosto()),
+                String.format("%.2f", subTotal)
+            };
+            modelo.addRow(fila);
+            
+            oV.getTxtPrecio().setText("Total a pagar: " + subTotal + "$");
+        
+            pizza = null;
+            tieneQueso = false;
+            tieneSalami = false;
+            tienePeperoni = false;
+            adPizza.clear();
+            adicionales = adPizza.toString();
+            bloquearTodosAdicionales();
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(oV, "No ha seleccionado nada aún");
+        }
     }
     
     public void setColorBotonesDescativados() {
