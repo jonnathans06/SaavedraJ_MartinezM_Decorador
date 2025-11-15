@@ -13,9 +13,6 @@ public class DecCrema extends DecoradorBebida{
 
     @Override
     public String getDescripcion() {
-        return super.getDescripcion() + " Crema"; 
+        return super.getDescripcion() + " + Crema"; 
     }
-    
-    
-
 }

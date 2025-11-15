@@ -148,7 +148,7 @@ public class OrdenVista extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lblPrecio = new javax.swing.JLabel();
         txtPrecio = new javax.swing.JTextField();
-        btnAggProducto = new javax.swing.JButton();
+        btnAggFactura = new javax.swing.JButton();
         btnFinOrden = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -440,10 +440,7 @@ public class OrdenVista extends javax.swing.JFrame {
 
         tblFactura.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Producto", "Adicional", "Precio", "Subtotal"
@@ -456,10 +453,10 @@ public class OrdenVista extends javax.swing.JFrame {
         lblPrecio.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblPrecio.setText("PRECIO: ");
 
-        btnAggProducto.setText("Agg. Orden");
-        btnAggProducto.addActionListener(new java.awt.event.ActionListener() {
+        btnAggFactura.setText("Agg. A la Factura");
+        btnAggFactura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAggProductoActionPerformed(evt);
+                btnAggFacturaActionPerformed(evt);
             }
         });
 
@@ -476,7 +473,7 @@ public class OrdenVista extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnFinOrden, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAggProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnAggFactura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(15, 15, 15))
         );
         jPanel1Layout.setVerticalGroup(
@@ -488,7 +485,7 @@ public class OrdenVista extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnAggProducto)
+                .addComponent(btnAggFactura)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addComponent(btnFinOrden)
                 .addContainerGap())
@@ -611,12 +608,24 @@ public class OrdenVista extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPeperoniActionPerformed
 
-    private void btnAggProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAggProductoActionPerformed
+    private void btnAggFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAggFacturaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnAggProductoActionPerformed
+    }//GEN-LAST:event_btnAggFacturaActionPerformed
 
     public JButton getBtnAzucar() {
         return btnAzucar;
+    }
+
+    public JButton getBtnAggFactura() {
+        return btnAggFactura;
+    }
+
+    public JButton getBtnFinOrden() {
+        return btnFinOrden;
+    }
+
+    public JButton getBtnTomate() {
+        return btnTomate;
     }
 
     public void setBtnAzucar(JButton btnAzucar) {
@@ -712,7 +721,7 @@ public class OrdenVista extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAggProducto;
+    private javax.swing.JButton btnAggFactura;
     private javax.swing.JButton btnAzucar;
     private javax.swing.JButton btnCafe;
     private javax.swing.JButton btnCrema;

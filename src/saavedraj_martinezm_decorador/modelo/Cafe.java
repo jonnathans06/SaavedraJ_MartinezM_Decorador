@@ -5,7 +5,7 @@ public class Cafe implements Producto{
     double costo;
 
     public Cafe() {
-        this.descripcion = "Café";
+        this.descripcion = "Cafe";
         this.costo = 2.20;
     }
 
@@ -17,5 +17,10 @@ public class Cafe implements Producto{
     @Override
     public double getCosto() {
         return costo;
+    }
+
+    @Override
+    public String toString() {
+        return descripcion + " " + costo + "$";
     }
 }

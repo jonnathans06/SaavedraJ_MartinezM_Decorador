@@ -13,9 +13,6 @@ public class DecAzucar extends DecoradorBebida{
 
     @Override
     public String getDescripcion() {
-        return super.getDescripcion() + " + Azúcar"; 
+        return super.getDescripcion() + " + Azucar"; 
     }
-    
-    
-
 }
