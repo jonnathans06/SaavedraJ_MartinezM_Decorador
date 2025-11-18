@@ -8,11 +8,11 @@ public class DecTomate extends DecoradorEnsalada{
 
     @Override
     public double getCosto() {
-        return super.getCosto() + 1.10;
+        return 1.10;
     }
 
     @Override
     public String getDescripcion() {
-        return super.getDescripcion() + " + Tomate";
+        return "Tomate";
     }
 }

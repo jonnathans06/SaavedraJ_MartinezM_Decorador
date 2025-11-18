@@ -8,11 +8,11 @@ public class DecPollo extends DecoradorEnsalada{
 
     @Override
     public double getCosto() {
-        return super.getCosto() + 1.5;
+        return 1.5;
     }
 
     @Override
     public String getDescripcion() {
-        return super.getDescripcion() + " + Pollo";
+        return "Pollo";
     }
 }

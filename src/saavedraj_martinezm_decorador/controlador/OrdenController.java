@@ -1,6 +1,5 @@
 package saavedraj_martinezm_decorador.controlador;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -25,455 +24,294 @@ public class OrdenController {
     private Producto cafe;
     private Producto ensalada;
     private Producto pizza;
-    private boolean tieneAzucar = false;
-    private boolean tieneCrema = false;
-    private boolean tieneTomate = false;
-    private boolean tieneVinagreta = false;
-    private boolean tienePollo = false;
-    private boolean tieneQueso = false;
-    private boolean tieneSalami = false;
-    private boolean tienePeperoni = false;
-    private List adCafe;
-    private List adEnsalada;
-    private List adPizza;
     private double subTotal = 0;
 
     public OrdenController(OrdenVista oV) {
         this.oV = oV;
         this.listaProductos = new ArrayList<>();
-        this.adCafe = new ArrayList();
-        this.adEnsalada = new ArrayList();
-        this.adPizza = new ArrayList();
-        setColorBotonesDescativados();
         controlarBotonesCafe();
         controlarBotonesEnsalada();
         controlarBotonesPizza();
-        controlarBotonesFactura();
     }
     
     public void controlarBotonesCafe() {
-        // Crear café
         oV.getBtnCafe().addActionListener((e) -> {
             crearCafe();
-            adicionalesCafe();
         });
         
-        // Poner Azucar
         oV.getBtnAzucar().addActionListener((e) -> {
             añadirAzucar();
         });
         
-        // Poner Crema
         oV.getBtnCrema().addActionListener((e) -> {
             añadirCrema();
         });
-        
     }
     
     public void controlarBotonesEnsalada() {
-        // Crear Ensalada
         oV.getBtnEnsalada().addActionListener((e) -> {
             crearEnsalada();
-            adicionalesEnsalada();
         });
         
-        // Poner Tomate
         oV.getBtnTomate().addActionListener((e) -> {
             añadirTomate();
         });
         
-        // Poner Vinagreta
         oV.getBtnVinagreta().addActionListener((e) -> {
             añadirVinagreta();
         });
         
-        // Poner Pollo
         oV.getBtnPollo().addActionListener((e) -> {
             añadirPollo();
         });
     }
     
     public void controlarBotonesPizza() {
-        // Crear pizza
         oV.getBtnPizza().addActionListener((e) -> {
             crearPizza();
-            adicionalesPizza();
         });
         
-        // Poner Queso
         oV.getBtnQueso().addActionListener((e) -> {
             añadirQueso();
         });
         
-        // Poner Salami 
-        oV.getBtnSalami().addActionListener((e) -> {
-            añadirSalami();
-        });
-        
-        // Poner Peperoni
         oV.getBtnPeperoni().addActionListener((e) -> {
             añadirPeperoni();
         });
-    }
-    
-    public void controlarBotonesFactura(){
-        oV.getBtnAñadirCafe().addActionListener((e) -> {
-            añadirCafeFactura();
-            oV.getBtnAñadirCafe().setEnabled(false);
-            setColorBotonesDescativados();
-        });
         
-        oV.getBtnAñadirEnsalada().addActionListener((e) -> {
-            añadirEnsaladaFactura();
-            oV.getBtnAñadirEnsalada().setEnabled(false);
-            setColorBotonesDescativados();
-        });
-        
-        oV.getBtnAñadirPizza().addActionListener((e) -> {
-            añadirPizzaFactura();
-            oV.getBtnAñadirPizza().setEnabled(false);
-            setColorBotonesDescativados();
+        oV.getBtnSalami().addActionListener((e) -> {
+            añadirSalami();
         });
     }
     
-    public void crearCafe(){
-        int opcion = JOptionPane.showConfirmDialog(oV, "¿Desea añadir a la su orden un café?", 
-                                                        "Confirmación", JOptionPane.YES_NO_OPTION);
-        
-        if (opcion == JOptionPane.YES_OPTION) {
-            cafe = new Cafe();
-            System.out.println("Bebida: " + cafe.getDescripcion() + " | Costo: " + cafe.getCosto());
-        }
+    public void crearCafe() {
+        cafe = new Cafe();
+        listaProductos.add(cafe);
+        añadirProductoFactura(cafe);
     }
     
     public void añadirAzucar() {
         
-        if (tieneAzucar) {
-            JOptionPane.showMessageDialog(oV, "Ya se añadió azúcar a este café");
+        if (listaProductos.isEmpty()) {
+            JOptionPane.showMessageDialog(oV, "Debe seleccionar un café primero");
+            return;
+        }
+        
+        Producto ultimo = listaProductos.getLast();
+        if (ultimo instanceof Cafe || ultimo instanceof DecAzucar || ultimo instanceof DecCrema) {
+            cafe = new DecAzucar(cafe);
+            listaProductos.add(cafe);
+            añadirProductoFactura(cafe);
         } else {
-            int opcion = JOptionPane.showConfirmDialog(oV, "¿Desea añadir azúcar a este café?", 
-                                                            "Confirmación", JOptionPane.YES_NO_OPTION);
-
-            if (opcion == JOptionPane.YES_OPTION) {
-                cafe = new DecAzucar(cafe);
-                adCafe.add("Azucar");
-                tieneAzucar = true;
-                System.out.println("Bebida: " + cafe.getDescripcion() + " | Costo: " + cafe.getCosto());
-            }
+            JOptionPane.showMessageDialog(oV, "Debe seleccionar un café primero");
         }
     }
     
     public void añadirCrema() {
-        if (tieneCrema) {
-            JOptionPane.showMessageDialog(oV, "Ya se añadió crema a este café");
-        } else {
-            int opcion = JOptionPane.showConfirmDialog(oV, "¿Desea añadir crema a este café?", 
-                                                            "Confirmación", JOptionPane.YES_NO_OPTION
-            );
-
-            if (opcion == JOptionPane.YES_OPTION) {
-                cafe = new DecCrema(cafe);
-                adCafe.add("Crema");
-                tieneCrema = true;
-                System.out.println("Bebida: " + cafe.getDescripcion() + " | Costo: " + cafe.getCosto());
-            }
+        if (listaProductos.isEmpty()) {
+            JOptionPane.showMessageDialog(oV, "Debe seleccionar un café primero");
+            return;
         }
-    }
-    
-    public void añadirCafeFactura(){
-        try {
+        
+        Producto ultimo = listaProductos.getLast();
+        
+        if (ultimo instanceof Cafe || ultimo instanceof DecAzucar || ultimo instanceof DecCrema) {
+            cafe = new DecCrema(cafe);
             listaProductos.add(cafe);
-            subTotal = subTotal + cafe.getCosto();
-            DefaultTableModel modelo = (DefaultTableModel) oV.getTblFactura().getModel();
-            String adicionales;
-        
-            if (adCafe.isEmpty()) {
-                adicionales = "No";
-            } else {
-                adicionales = adCafe.toString();
-            }
-            
-            Object[] fila = {
-                "Cafe",
-                adicionales,
-                String.format("%.2f", cafe.getCosto()),
-                String.format("%.2f", subTotal)
-            };
-            modelo.addRow(fila);
-            
-            oV.getTxtPrecio().setText("Total a pagar: " + subTotal + "");
-        
-            cafe = null;
-            tieneAzucar = false;
-            tieneCrema = false;
-            adCafe.clear();
-            adicionales = adCafe.toString();
-            bloquearTodosAdicionales();
-        } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(oV, "No ha seleccionado nada aún");
-        } 
-    }
-    
-    public void adicionalesCafe() {
-        Color verde = new Color (95, 203, 113);
-        
-        oV.getBtnAñadirCafe().setEnabled(true);
-        oV.getBtnAñadirCafe().setBackground(verde);
-        oV.getBtnAzucar().setEnabled(true);
-        oV.getBtnCrema().setEnabled(true);
-        oV.getBtnEnsalada().setEnabled(false);
-        oV.getBtnPeperoni().setEnabled(false);
-        oV.getBtnPizza().setEnabled(false);
-        oV.getBtnPollo().setEnabled(false);
-        oV.getBtnQueso().setEnabled(false);
-        oV.getBtnSalami().setEnabled(false);
-        oV.getBtnVinagreta().setEnabled(false);
+            añadirProductoFactura(cafe);
+        } else {
+            JOptionPane.showMessageDialog(oV, "Debe seleccionar un café primero");
+        }
     }
     
     public void crearEnsalada() {
-        int opcion = JOptionPane.showConfirmDialog(oV, "¿Desea añadir a su orden una ensalada?",
-                                                        "Confirmación",JOptionPane.YES_NO_OPTION
-        );
-
-        if (opcion == JOptionPane.YES_OPTION) {
-            ensalada = new Ensalada();
-            System.out.println("Ensalada: " + ensalada.getDescripcion() + " | Costo: " + ensalada.getCosto());
-        }
+        ensalada = new Ensalada();
+        listaProductos.add(ensalada);
+        añadirProductoFactura(ensalada);
     }
     
     public void añadirTomate() {
-        if (tieneTomate) {
-            JOptionPane.showMessageDialog(oV, "Ya se añadió tomate a esta ensalada");
+        if (listaProductos.isEmpty()) {
+            JOptionPane.showMessageDialog(oV, "Debe seleccionar una ensalada primero");
+            return;
+        }
+        
+        Producto ultimo = listaProductos.getLast();
+        
+        if (ultimo instanceof Ensalada || ultimo instanceof DecTomate || ultimo instanceof DecVinagreta
+            || ultimo instanceof DecPollo) {
+            
+            ensalada = new DecTomate(ensalada);
+            listaProductos.add(ensalada);
+            añadirProductoFactura(ensalada);
         } else {
-            int opcion = JOptionPane.showConfirmDialog(oV, "¿Desea añadir tomate a esta ensalada?", 
-                                                            "Confirmación", JOptionPane.YES_NO_OPTION);
-
-            if (opcion == JOptionPane.YES_OPTION) {
-                ensalada = new DecTomate(ensalada);
-                adEnsalada.add("Tomate");
-                tieneTomate = true;
-                System.out.println("Ensalda: " + ensalada.getDescripcion() + " | Costo: " + ensalada.getCosto());
-            }
+            JOptionPane.showMessageDialog(oV, "Debe seleccionar una ensalada primero");
         }
     }
     
     public void añadirVinagreta() {
-        if (tieneVinagreta) {
-            JOptionPane.showMessageDialog(oV, "Ya se añadió vinagreta a esta ensalada");
+        if (listaProductos.isEmpty()) {
+            JOptionPane.showMessageDialog(oV, "Debe seleccionar una ensalada primero");
+            return;
+        }
+        
+        Producto ultimo = listaProductos.getLast();
+        
+        if (ultimo instanceof Ensalada || ultimo instanceof DecTomate || ultimo instanceof DecVinagreta
+            || ultimo instanceof DecPollo) {
+            
+            ensalada = new DecVinagreta(ensalada);
+            listaProductos.add(ensalada);
+            añadirProductoFactura(ensalada);
         } else {
-            int opcion = JOptionPane.showConfirmDialog(oV, "¿Desea añadir vinagreta a esta ensalada?", 
-                                                            "Confirmación", JOptionPane.YES_NO_OPTION);
-
-            if (opcion == JOptionPane.YES_OPTION) {
-                ensalada = new DecVinagreta(ensalada);
-                adEnsalada.add("Vinagreta");
-                tieneVinagreta = true;
-                System.out.println("Ensalada: " + ensalada.getDescripcion() + " | Costo: " + ensalada.getCosto());
-            }
+            JOptionPane.showMessageDialog(oV, "Debe seleccionar una ensalada primero");
         }
     }
     
     public void añadirPollo() {
-        if (tienePollo) {
-            JOptionPane.showMessageDialog(oV, "Ya se añadió pollo a esta ensalada");
-        } else {
-            int opcion = JOptionPane.showConfirmDialog(oV, "¿Desea añadir pollo a esta ensalada?", 
-                                                            "Confirmación", JOptionPane.YES_NO_OPTION);
-
-            if (opcion == JOptionPane.YES_OPTION) {
-                ensalada = new DecPollo(ensalada);
-                adEnsalada.add("Pollo");
-                tienePollo = true;
-                System.out.println("Ensalada: " + ensalada.getDescripcion() + " | Costo: " + ensalada.getCosto());
-            }
+        if (listaProductos.isEmpty()) {
+            JOptionPane.showMessageDialog(oV, "Debe seleccionar una ensalada primero");
+            return;
         }
-    }
-    
-    public void añadirEnsaladaFactura() {
-        try {
+        
+        Producto ultimo = listaProductos.getLast();
+        
+        if (ultimo instanceof Ensalada || ultimo instanceof DecTomate || ultimo instanceof DecVinagreta
+            || ultimo instanceof DecPollo) {
+            
+            ensalada = new DecPollo(ensalada);
             listaProductos.add(ensalada);
-            subTotal = subTotal + ensalada.getCosto();
-            DefaultTableModel modelo = (DefaultTableModel) oV.getTblFactura().getModel();
-            String adicionales;
-        
-            if (adEnsalada.isEmpty()) {
-                adicionales = "No";
-            } else {
-                adicionales = adEnsalada.toString();
-            }
-            
-            Object[] fila = {
-                "Ensalada",
-                adicionales,
-                String.format("%.2f", ensalada.getCosto()),
-                String.format("%.2f", subTotal)
-            };
-            modelo.addRow(fila);
-            
-            oV.getTxtPrecio().setText("Total a pagar: " + subTotal + "$");
-        
-            ensalada = null;
-            tieneTomate = false;
-            tieneVinagreta = false;
-            tienePollo = false;
-            adEnsalada.clear();
-            adicionales = adEnsalada.toString();
-            bloquearTodosAdicionales();
-        } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(oV, "No ha seleccionado nada aún");
+            añadirProductoFactura(ensalada);
+        } else {
+            JOptionPane.showMessageDialog(oV, "Debe seleccionar una ensalada primero");
         }
-    }
-    
-    public void adicionalesEnsalada() {
-        Color verde = new Color (95, 203, 113);
-        oV.getBtnAñadirEnsalada().setBackground(verde);
-        oV.getBtnAñadirEnsalada().setEnabled(true);
-        
-        oV.getBtnAñadirCafe().setEnabled(false);
-        oV.getBtnCafe().setEnabled(false);
-        oV.getBtnAzucar().setEnabled(false);
-        oV.getBtnCrema().setEnabled(false);
-        oV.getBtnPeperoni().setEnabled(false);
-        oV.getBtnPizza().setEnabled(false);
-        oV.getBtnPollo().setEnabled(true);
-        oV.getBtnTomate().setEnabled(true);
-        oV.getBtnQueso().setEnabled(false);
-        oV.getBtnSalami().setEnabled(false);
-        oV.getBtnVinagreta().setEnabled(true);
     }
     
     public void crearPizza() {
-        int opcion = JOptionPane.showConfirmDialog(oV, "¿Desea añadir a la su orden una pizza?", 
-                                                        "Confirmación", JOptionPane.YES_NO_OPTION);
-        
-        if (opcion == JOptionPane.YES_OPTION) {
-            pizza = new Pizza();
-            System.out.println("Pizza: " + pizza.getDescripcion() + " | Costo: " + pizza.getCosto());
-        }
+        pizza = new Pizza();
+        listaProductos.add(pizza);
+        añadirProductoFactura(pizza);
     }
     
     public void añadirQueso() {
-        if (tieneQueso) {
-            JOptionPane.showMessageDialog(oV, "Ya se añadió queso a esta pizza");
+        if (listaProductos.isEmpty()) {
+            JOptionPane.showMessageDialog(oV, "Debe seleccionar una pizza");
+            return;
+        }
+        
+        Producto ultimo = listaProductos.getLast();
+        if (ultimo instanceof Pizza || ultimo instanceof DecQueso || ultimo instanceof DecPeperoni
+            || ultimo instanceof DecSalami) {
+            
+            pizza = new DecQueso(pizza);
+            listaProductos.add(pizza);
+            añadirProductoFactura(pizza);
         } else {
-            int opcion = JOptionPane.showConfirmDialog(oV, "¿Desea añadir queso a esta pizza?", 
-                                                            "Confirmación", JOptionPane.YES_NO_OPTION);
-
-            if (opcion == JOptionPane.YES_OPTION) {
-                pizza = new DecQueso(pizza);
-                adPizza.add("Queso");
-                tieneQueso = true;
-                System.out.println("Pizza: " + pizza.getDescripcion() + " | Costo: " + pizza.getCosto());
-            }
+            JOptionPane.showMessageDialog(oV, "Debe seleccionar una pizza");
         }
     }
     
     public void añadirSalami() {
-        if (tieneSalami) {
-            JOptionPane.showMessageDialog(oV, "Ya se añadió salami a esta pizza");
+        if (listaProductos.isEmpty()) {
+            JOptionPane.showMessageDialog(oV, "Debe seleccionar una pizza");
+            return;
+        }
+        
+        Producto ultimo = listaProductos.getLast();
+        if (ultimo instanceof Pizza || ultimo instanceof DecQueso || ultimo instanceof DecPeperoni
+            || ultimo instanceof DecSalami) {
+            
+            pizza = new DecSalami(pizza);
+            listaProductos.add(pizza);
+            añadirProductoFactura(pizza);
         } else {
-            int opcion = JOptionPane.showConfirmDialog(oV, "¿Desea añadir salami a esta pizza?", 
-                                                            "Confirmación", JOptionPane.YES_NO_OPTION);
-
-            if (opcion == JOptionPane.YES_OPTION) {
-                pizza = new DecSalami(pizza);
-                adPizza.add("Salami");
-                tieneSalami = true;
-                System.out.println("Pizza: " + pizza.getDescripcion() + " | Costo: " + pizza.getCosto());
-            }
+            JOptionPane.showMessageDialog(oV, "Debe seleccionar una pizza");
         }
     }
     
     public void añadirPeperoni() {
-        if (tienePeperoni) {
-            JOptionPane.showMessageDialog(oV, "Ya se añadió pepperoni a esta pizza");
-        } else {
-            int opcion = JOptionPane.showConfirmDialog(oV, "¿Desea añadir pepperoni a esta pizza?", 
-                                                            "Confirmación", JOptionPane.YES_NO_OPTION);
-
-            if (opcion == JOptionPane.YES_OPTION) {
-                pizza = new DecPeperoni(pizza);
-                adPizza.add("Pepperoni");
-                tienePeperoni = true;
-                System.out.println("Pizza: " + pizza.getDescripcion() + " | Costo: " + pizza.getCosto());
-            }
+        if (listaProductos.isEmpty()) {
+            JOptionPane.showMessageDialog(oV, "Debe seleccionar una pizza");
+            return;
         }
-    }
-    
-    public void adicionalesPizza() {
-        Color verde = new Color (95, 203, 113);
-        oV.getBtnAñadirPizza().setBackground(verde);
         
-        oV.getBtnAñadirEnsalada().setEnabled(false);
-        oV.getBtnEnsalada().setEnabled(false);
-        oV.getBtnAñadirCafe().setEnabled(false);
-        oV.getBtnCafe().setEnabled(false);
-        oV.getBtnAzucar().setEnabled(false);
-        oV.getBtnCrema().setEnabled(false);
-        oV.getBtnPeperoni().setEnabled(true);
-        oV.getBtnPizza().setEnabled(true);
-        oV.getBtnPollo().setEnabled(false);
-        oV.getBtnTomate().setEnabled(false);
-        oV.getBtnQueso().setEnabled(true);
-        oV.getBtnSalami().setEnabled(true);
-        oV.getBtnVinagreta().setEnabled(false);
-        oV.getBtnAñadirPizza().setEnabled(true);
-    }
-    
-    public void bloquearTodosAdicionales() {
-        oV.getBtnCafe().setEnabled(true);
-        oV.getBtnAzucar().setEnabled(false);
-        oV.getBtnCrema().setEnabled(false);
-        oV.getBtnEnsalada().setEnabled(true);
-        oV.getBtnPeperoni().setEnabled(false);
-        oV.getBtnPizza().setEnabled(true);
-        oV.getBtnPollo().setEnabled(false);
-        oV.getBtnQueso().setEnabled(false);
-        oV.getBtnSalami().setEnabled(false);
-        oV.getBtnVinagreta().setEnabled(false);
-        oV.getBtnTomate().setEnabled(false);
-    }
-    
-    public void añadirPizzaFactura() {
-        try {
+        Producto ultimo = listaProductos.getLast();
+        if (ultimo instanceof Pizza || ultimo instanceof DecQueso || ultimo instanceof DecPeperoni
+            || ultimo instanceof DecSalami) {
+            
+            pizza = new DecPeperoni(pizza);
             listaProductos.add(pizza);
-            subTotal = subTotal + pizza.getCosto();
-            DefaultTableModel modelo = (DefaultTableModel) oV.getTblFactura().getModel();
-            String adicionales;
-        
-            if (adPizza.isEmpty()) {
-                adicionales = "No";
-            } else {
-                adicionales = adPizza.toString();
-            }
-            
-            Object[] fila = {
-                "Pizza",
-                adicionales,
-                String.format("%.2f", pizza.getCosto()),
-                String.format("%.2f", subTotal)
-            };
-            modelo.addRow(fila);
-            
-            oV.getTxtPrecio().setText("Total a pagar: " + subTotal + "$");
-        
-            pizza = null;
-            tieneQueso = false;
-            tieneSalami = false;
-            tienePeperoni = false;
-            adPizza.clear();
-            adicionales = adPizza.toString();
-            bloquearTodosAdicionales();
-        } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(oV, "No ha seleccionado nada aún");
+            añadirProductoFactura(pizza);
+        } else {
+            JOptionPane.showMessageDialog(oV, "Debe seleccionar una pizza");
         }
     }
     
-    public void setColorBotonesDescativados() {
-        Color gris = new Color (178, 178, 178);
-        oV.getBtnAñadirCafe().setBackground(gris);
-        oV.getBtnAñadirPizza().setBackground(gris);
-        oV.getBtnAñadirEnsalada().setBackground(gris);
-    }
+    public void añadirProductoFactura(Producto p){
+        DefaultTableModel modelo = (DefaultTableModel) oV.getTblFactura().getModel();
+        String producto = "";
+        String acompañado = "";
+        subTotal = subTotal + p.getCosto();
+        
+        switch (p) {
+            case Cafe c -> {
+                producto = c.getDescripcion();
+                acompañado = "";
+            }
+            case DecAzucar a -> {
+                producto = "";
+                acompañado = a.getDescripcion();
+            }
+            case DecCrema d -> {
+                producto = "";
+                acompañado = d.getDescripcion();
+            }
+            case Ensalada e -> {
+                producto = e.getDescripcion();
+                acompañado = "";
+            }
+            case DecTomate t -> {
+                producto = "";
+                acompañado = t.getDescripcion();
+            }
+            case DecVinagreta v -> {
+                producto = "";
+                acompañado = v.getDescripcion();
+            }
+            case DecPollo po -> {
+                producto = "";
+                acompañado = po.getDescripcion();
+            }
+            case Pizza pi -> {
+                producto = pi.getDescripcion();
+                acompañado = "";
+            }
+            case DecPeperoni pe -> {
+                producto = "";
+                acompañado = pe.getDescripcion();
+            }
+            case DecQueso q -> {
+                producto = "";
+                acompañado = q.getDescripcion();
+            }
+            case DecSalami s -> {
+                producto = "";
+                acompañado = s.getDescripcion();
+            }
+            default -> {
+                producto = "";
+                acompañado = "";
+            }
+        }
 
+        
+        Object[] fila = {
+            producto,
+            acompañado,
+            p.getCosto(),
+            String.format("%.2f", subTotal)
+        };
+        
+        modelo.addRow(fila);
+    }
 }

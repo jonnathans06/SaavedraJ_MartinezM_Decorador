@@ -7,11 +7,11 @@ public class DecSalami extends DecoradorPizza {
 
     @Override
     public double getCosto() {
-        return super.getCosto() + 3;
+        return 3;
     }
 
     @Override
     public String getDescripcion() {
-        return super.getDescripcion() + " + Salami";
+        return "Salami";
     }
 }

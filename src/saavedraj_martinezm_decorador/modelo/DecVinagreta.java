@@ -8,11 +8,11 @@ public class DecVinagreta extends DecoradorEnsalada{
 
     @Override
     public double getCosto() {
-        return super.getCosto() + 0.5; 
+        return 0.5; 
     }
 
     @Override
     public String getDescripcion() {
-        return super.getDescripcion() + " + Vinagreta"; 
+        return "Vinagreta"; 
     }
 }

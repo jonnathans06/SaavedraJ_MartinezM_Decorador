@@ -5,14 +5,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-
+import saavedraj_martinezm_decorador.modelo.Cafe;
 
 public class OrdenVista extends javax.swing.JFrame {
     
-    String adiCafe = "";
-    String adiPizza = "";
-    String adiEnsalada = "";
-    
+    private Cafe cafe;
+        
     public OrdenVista() {
         initComponents();
         iniciarVentana();
@@ -137,10 +135,6 @@ public class OrdenVista extends javax.swing.JFrame {
         btnPeperoni = new javax.swing.JButton();
         lblPeperoni = new javax.swing.JLabel();
         lblDescripcionPlatos = new javax.swing.JLabel();
-        panelAñadirAFactura = new javax.swing.JPanel();
-        btnAñadirCafe = new javax.swing.JButton();
-        btnAñadirEnsalada = new javax.swing.JButton();
-        btnAñadirPizza = new javax.swing.JButton();
         panelAcciones = new javax.swing.JPanel();
         panelFactura = new javax.swing.JPanel();
         lblDetalle = new javax.swing.JLabel();
@@ -204,7 +198,6 @@ public class OrdenVista extends javax.swing.JFrame {
         lblPizza.setText("jLabel1");
 
         btnQueso.setBackground(new java.awt.Color(255, 250, 243));
-        btnQueso.setEnabled(false);
         btnQueso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnQuesoActionPerformed(evt);
@@ -226,7 +219,6 @@ public class OrdenVista extends javax.swing.JFrame {
         lblCafe.setText("jLabel1");
 
         btnAzucar.setBackground(new java.awt.Color(255, 250, 243));
-        btnAzucar.setEnabled(false);
         btnAzucar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAzucarActionPerformed(evt);
@@ -237,7 +229,6 @@ public class OrdenVista extends javax.swing.JFrame {
         lblAzucar.setText("jLabel1");
 
         btnTomate.setBackground(new java.awt.Color(255, 250, 243));
-        btnTomate.setEnabled(false);
         btnTomate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTomateActionPerformed(evt);
@@ -248,7 +239,6 @@ public class OrdenVista extends javax.swing.JFrame {
         lblTomate.setText("jLabel1");
 
         btnVinagreta.setBackground(new java.awt.Color(255, 250, 243));
-        btnVinagreta.setEnabled(false);
         btnVinagreta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVinagretaActionPerformed(evt);
@@ -259,7 +249,6 @@ public class OrdenVista extends javax.swing.JFrame {
         lblVinagreta.setText("jLabel1");
 
         btnPollo.setBackground(new java.awt.Color(255, 250, 243));
-        btnPollo.setEnabled(false);
         btnPollo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPolloActionPerformed(evt);
@@ -270,7 +259,6 @@ public class OrdenVista extends javax.swing.JFrame {
         lblPollo.setText("jLabel1");
 
         btnCrema.setBackground(new java.awt.Color(255, 250, 243));
-        btnCrema.setEnabled(false);
         btnCrema.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCremaActionPerformed(evt);
@@ -281,7 +269,6 @@ public class OrdenVista extends javax.swing.JFrame {
         lblCrema.setText("jLabel1");
 
         btnSalami.setBackground(new java.awt.Color(255, 250, 243));
-        btnSalami.setEnabled(false);
         btnSalami.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalamiActionPerformed(evt);
@@ -292,7 +279,6 @@ public class OrdenVista extends javax.swing.JFrame {
         lblSalami.setText("jLabel1");
 
         btnPeperoni.setBackground(new java.awt.Color(255, 250, 243));
-        btnPeperoni.setEnabled(false);
         btnPeperoni.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPeperoniActionPerformed(evt);
@@ -304,51 +290,6 @@ public class OrdenVista extends javax.swing.JFrame {
 
         lblDescripcionPlatos.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblDescripcionPlatos.setText("PLATO PRINCIPAL                     ADICIONALES");
-
-        btnAñadirCafe.setBackground(new java.awt.Color(204, 204, 204));
-        btnAñadirCafe.setText("Añadir");
-        btnAñadirCafe.setEnabled(false);
-        btnAñadirCafe.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAñadirCafeActionPerformed(evt);
-            }
-        });
-
-        btnAñadirEnsalada.setBackground(new java.awt.Color(204, 204, 204));
-        btnAñadirEnsalada.setText("Añadir");
-        btnAñadirEnsalada.setEnabled(false);
-
-        btnAñadirPizza.setBackground(new java.awt.Color(204, 204, 204));
-        btnAñadirPizza.setText("Añadir");
-        btnAñadirPizza.setEnabled(false);
-
-        javax.swing.GroupLayout panelAñadirAFacturaLayout = new javax.swing.GroupLayout(panelAñadirAFactura);
-        panelAñadirAFactura.setLayout(panelAñadirAFacturaLayout);
-        panelAñadirAFacturaLayout.setHorizontalGroup(
-            panelAñadirAFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelAñadirAFacturaLayout.createSequentialGroup()
-                .addGroup(panelAñadirAFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(panelAñadirAFacturaLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(btnAñadirCafe, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAñadirAFacturaLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(panelAñadirAFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnAñadirEnsalada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnAñadirPizza, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE))))
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-        panelAñadirAFacturaLayout.setVerticalGroup(
-            panelAñadirAFacturaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelAñadirAFacturaLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(btnAñadirCafe, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(118, 118, 118)
-                .addComponent(btnAñadirEnsalada, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
-                .addComponent(btnAñadirPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
-        );
 
         javax.swing.GroupLayout panelProductosLayout = new javax.swing.GroupLayout(panelProductos);
         panelProductos.setLayout(panelProductosLayout);
@@ -386,7 +327,7 @@ public class OrdenVista extends javax.swing.JFrame {
                                 .addGroup(panelProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnPollo, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
                                     .addComponent(lblPollo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(51, 51, 51))
+                                .addGap(348, 348, 348))
                             .addGroup(panelProductosLayout.createSequentialGroup()
                                 .addGroup(panelProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(panelProductosLayout.createSequentialGroup()
@@ -409,9 +350,7 @@ public class OrdenVista extends javax.swing.JFrame {
                                         .addGroup(panelProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(btnCrema, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(lblCrema, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addComponent(panelAñadirAFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(138, 138, 138))))
+                                .addContainerGap(348, Short.MAX_VALUE))))))
         );
         panelProductosLayout.setVerticalGroup(
             panelProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -422,55 +361,52 @@ public class OrdenVista extends javax.swing.JFrame {
                     .addGroup(panelProductosLayout.createSequentialGroup()
                         .addComponent(lblDescripcionPlatos, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panelProductosLayout.createSequentialGroup()
+                                .addComponent(btnCrema, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(7, 7, 7)
+                                .addComponent(lblCrema))
+                            .addGroup(panelProductosLayout.createSequentialGroup()
+                                .addGroup(panelProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnCafe, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnAzucar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(7, 7, 7)
+                                .addGroup(panelProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblCafe)
+                                    .addComponent(lblAzucar))))
+                        .addGap(60, 60, 60)
+                        .addGroup(panelProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(panelProductosLayout.createSequentialGroup()
+                                    .addComponent(btnEnsalada, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(7, 7, 7)
+                                    .addComponent(lblEnsalada))
+                                .addGroup(panelProductosLayout.createSequentialGroup()
+                                    .addComponent(btnTomate, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(7, 7, 7)
+                                    .addComponent(lblTomate)))
+                            .addGroup(panelProductosLayout.createSequentialGroup()
+                                .addGroup(panelProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnVinagreta, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnPollo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(7, 7, 7)
+                                .addGroup(panelProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblVinagreta)
+                                    .addComponent(lblPollo))))
+                        .addGap(60, 60, 60)
                         .addGroup(panelProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelProductosLayout.createSequentialGroup()
-                                .addGroup(panelProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(panelProductosLayout.createSequentialGroup()
-                                        .addComponent(btnCrema, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(7, 7, 7)
-                                        .addComponent(lblCrema))
-                                    .addGroup(panelProductosLayout.createSequentialGroup()
-                                        .addGroup(panelProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(btnCafe, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btnAzucar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(7, 7, 7)
-                                        .addGroup(panelProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(lblCafe)
-                                            .addComponent(lblAzucar))))
-                                .addGap(60, 60, 60)
                                 .addGroup(panelProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(panelProductosLayout.createSequentialGroup()
-                                            .addComponent(btnEnsalada, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(7, 7, 7)
-                                            .addComponent(lblEnsalada))
-                                        .addGroup(panelProductosLayout.createSequentialGroup()
-                                            .addComponent(btnTomate, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(7, 7, 7)
-                                            .addComponent(lblTomate)))
-                                    .addGroup(panelProductosLayout.createSequentialGroup()
-                                        .addGroup(panelProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(btnVinagreta, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btnPollo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(7, 7, 7)
-                                        .addGroup(panelProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(lblVinagreta)
-                                            .addComponent(lblPollo))))
-                                .addGap(60, 60, 60)
-                                .addGroup(panelProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelProductosLayout.createSequentialGroup()
-                                        .addGroup(panelProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(btnPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btnQueso, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(7, 7, 7)
-                                        .addGroup(panelProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(lblPizza)
-                                            .addComponent(lblQueso)))
-                                    .addGroup(panelProductosLayout.createSequentialGroup()
-                                        .addComponent(btnSalami, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(7, 7, 7)
-                                        .addComponent(lblSalami))))
-                            .addComponent(panelAñadirAFactura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(btnPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnQueso, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(7, 7, 7)
+                                .addGroup(panelProductosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblPizza)
+                                    .addComponent(lblQueso)))
+                            .addGroup(panelProductosLayout.createSequentialGroup()
+                                .addComponent(btnSalami, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(7, 7, 7)
+                                .addComponent(lblSalami))))
                     .addGroup(panelProductosLayout.createSequentialGroup()
                         .addComponent(btnPeperoni, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(7, 7, 7)
@@ -634,24 +570,8 @@ public class OrdenVista extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPeperoniActionPerformed
 
-    private void btnAñadirCafeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirCafeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAñadirCafeActionPerformed
-
     public JButton getBtnAzucar() {
         return btnAzucar;
-    }
-
-    public JButton getBtnAñadirCafe() {
-        return btnAñadirCafe;
-    }
-
-    public JButton getBtnAñadirEnsalada() {
-        return btnAñadirEnsalada;
-    }
-
-    public JButton getBtnAñadirPizza() {
-        return btnAñadirPizza;
     }
 
     public JButton getBtnTomate() {
@@ -677,7 +597,7 @@ public class OrdenVista extends javax.swing.JFrame {
     public void setBtnCrema(JButton btnCrema) {
         this.btnCrema = btnCrema;
     }
-
+    
     public JButton getBtnEnsalada() {
         return btnEnsalada;
     }
@@ -752,9 +672,6 @@ public class OrdenVista extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAzucar;
-    private javax.swing.JButton btnAñadirCafe;
-    private javax.swing.JButton btnAñadirEnsalada;
-    private javax.swing.JButton btnAñadirPizza;
     private javax.swing.JButton btnCafe;
     private javax.swing.JButton btnCrema;
     private javax.swing.JButton btnEnsalada;
@@ -783,7 +700,6 @@ public class OrdenVista extends javax.swing.JFrame {
     private javax.swing.JLabel lblTomate;
     private javax.swing.JLabel lblVinagreta;
     private javax.swing.JPanel panelAcciones;
-    private javax.swing.JPanel panelAñadirAFactura;
     private javax.swing.JPanel panelFactura;
     private javax.swing.JPanel panelPrincipal;
     private javax.swing.JPanel panelProductos;

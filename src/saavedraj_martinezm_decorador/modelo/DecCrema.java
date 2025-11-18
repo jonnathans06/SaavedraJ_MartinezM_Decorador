@@ -8,11 +8,11 @@ public class DecCrema extends DecoradorBebida{
 
     @Override
     public double getCosto() {
-        return super.getCosto() + 1.2;
+        return 1.2;
     }
 
     @Override
     public String getDescripcion() {
-        return super.getDescripcion() + " + Crema"; 
+        return "Crema"; 
     }
 }

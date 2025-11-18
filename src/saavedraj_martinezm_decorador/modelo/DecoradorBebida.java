@@ -16,9 +16,4 @@ public abstract class DecoradorBebida implements Producto{
     public double getCosto() {
         return bebida.getCosto();
     }
-
-    @Override
-    public String toString() {
-        return bebida.getDescripcion() + " " + bebida.getCosto() + "$";
-    }
 }
